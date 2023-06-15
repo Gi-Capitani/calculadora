@@ -45,6 +45,18 @@ processOperation(operation) {
             operationValue = previews * current;
             this.updateScreen(operationValue, operation, current, previews);
             break;
+        case "DEL":
+                this.processDelOperator();
+            break;
+        case "CE":
+                this.processClearCurrentOperator();
+            break;
+        case "C":
+                this.processClearOperator();
+            break;
+        case "=":
+                this.processEqualOperator();
+            break;
         default:
             return;
     }
@@ -59,16 +71,15 @@ processOperation(operation) {
     ) {
         console.log(operationValue, operation, current, previews);
 
-        if(operationValue === null){
+        if (operationValue === null){
             this.currentOperationText.innerText += this.currentOperation;
         } else {
             // check if value is zero, if it is just add current value
-            if(previews === 0) {
+            if (previews === 0) {
                 operationValue = current;
             }
-
             // add current value to previews
-            this.previewsOperationText.innerText = '${operationValue} ${operation}';
+            this.previousOperationText.innerText = `${operationValue} ${operation}`;
             this.currentOperationText.innerText = "";
         }
     }
