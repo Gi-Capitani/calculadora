@@ -6,7 +6,7 @@ class Calculator {
     constructor(previewsOperationText, currentOperationText) {
         this.previewsOperationText = previewsOperationText;
         this.currentOperationText = currentOperationText;
-        this.currentOperation = "";
+        this.currentOperation = " ";
     }
 
     //add digit to calculator screen
@@ -20,13 +20,57 @@ class Calculator {
     this.updateScreen();
 }
 
-    //process all calculator operations
-    processOperation(operation);
-    console.log(operation);
+//process all calculator operations
+processOperation(operation) {
+
+    // get current and previews value
+    let operationValue;
+    const previews = +this.previewsOperationText.innerText.split(" ")["0"];
+    const current = +this.currentOperationText.innerText;
+
+    switch(operation) {
+        case "+":
+            operationValue = previews + current;
+            this.updateScreen(operationValue, operation, current, previews);
+            break;
+        case "-":
+            operationValue = previews - current;
+            this.updateScreen(operationValue, operation, current, previews);
+            break;
+        case "/":
+            operationValue = previews / current;
+            this.updateScreen(operationValue, operation, current, previews);
+            break;
+        case "*":
+            operationValue = previews * current;
+            this.updateScreen(operationValue, operation, current, previews);
+            break;
+        default:
+            return;
+    }
+}
 
     //change values of the calculator screen
-    updateScreen() {
-        this.currentOperationText.innerText += this.currentOperation;
+    updateScreen(
+        operationValue = null, 
+        operation = null, 
+        current = null, 
+        previews = null
+    ) {
+        console.log(operationValue, operation, current, previews);
+
+        if(operationValue === null){
+            this.currentOperationText.innerText += this.currentOperation;
+        } else {
+            // check if value is zero, if it is just add current value
+            if(previews === 0) {
+                operationValue = current;
+            }
+
+            // add current value to previews
+            this.previewsOperationText.innerText = '${operationValue} ${operation}';
+            this.currentOperationText.innerText = "";
+        }
     }
 }
 
