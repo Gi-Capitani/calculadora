@@ -96,3 +96,19 @@ body {
     left: 0;
     justify-content: center;
 }
+
+@media screen and (max-width: 768px) {
+    #calc {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    #calc {
+        margin: auto;
+        width: 300px;
+    }
+    #buttons-container {
+        grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
+    }
+}
